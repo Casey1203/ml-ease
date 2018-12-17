@@ -99,22 +99,20 @@ $$
 P(z_{i,k}=1|x_i;\theta)
 $$
 
-样本$x_i$与隐变量$z_{i,k}$的联合概率是
+样本$x_i$与隐变量$z_{i}$的联合概率是
 $$
 \begin{aligned}
-P(x_i,z_{i,k}|\theta) &= P(x_i|z_{i,k};\theta)P(z_{i,k}|\theta) \\
-&=  \pi _ { k } N \left( x _ { i } | \mu _ { k } , \Sigma _ { k } \right )
+P(x_i,z_{i}|\theta) &= P(x_i|z_{i};\theta)P(z_{i}|\theta) \\
+&=  \prod_{k=1}^K\left[\pi _ { k } N \left( x _ { i } | \mu _ { k } , \Sigma _ { k } \right )\right]^{z_{i,k}}
 \end{aligned}
 $$
 
-
-
-
-
-
+所以整个样本集$X$与隐变量$Z$联合概率为
 $$
 \begin{aligned}
-P(X,Z|\theta) &= \prod_{i=1}^N{P(x_i,z_{i,1},z_{i,2},\cdots,z_{i,K} | \theta)} \\ 
+P(X,Z|\theta) &= \prod_{i=1}^N{P(x_i,z_i|\theta)} \\ 
+&= \prod_{i=1}^N{\prod_{k=1}^K\left[\pi _ { k } N \left( x _ { i } | \mu _ { k } , \Sigma _ { k } \right )\right]^{z_{i,k}}} \\
+&= \prod_{k=1}^K{\prod_{i=1}^N\left[\pi _ { k } N \left( x _ { i } | \mu _ { k } , \Sigma _ { k } \right )\right]^{z_{i,k}}} \\
 &= 
 \end{aligned}
 $$

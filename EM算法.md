@@ -353,7 +353,19 @@ l _ { \pi , \mu , \Sigma } ( X)
 &= \sum_{i=1}^N{\sum_{k=1}^K{Q(z_{i,k})\log{\left(\frac{\frac{\pi_k}{\sqrt{2\pi}}\Sigma^{-1}_ke^{-\frac{(x_i-\mu_k)^T\Sigma_k^{-2}(x_i-\mu_k)}{2}}}{Q_(z_{i,k})}\right)}}} = B
 \end{aligned}
 $$
-因此利用对数似然函数的下界，对下界求偏导数
+因此利用对数似然函数的下界，对下界求偏导数。如果想要让下界B取到极大值，要让线段与log函数相交的点在同一点上，即线段汇聚成一点，因此要求
+$$
+\frac{\pi _ { k } N \left( x _ { i } | \mu _ { k } , \Sigma _ { k } \right)}{Q(z_{i,k})} = c
+$$
+因此
+$$
+Q(z_{i,k}) \propto \pi _ { k } N \left( x _ { i } | \mu _ { k } , \Sigma _ { k } \right)
+$$
+又因为$\sum_{k=1}^K{Q(z_{i,k})} = 1$，因此
+$$
+Q(z_{i,k}) = \frac{\pi _ { k } N \left( x _ { i } | \mu _ { k } , \Sigma _ { k } \right)}{\sum_{l=1}^K{\pi _ { l } N \left( x _ { i } | \mu _ { l } , \Sigma _ { l } \right)}}
+$$
+发现$Q(z_{i,k})$刚好等于$\gamma(i,k)$，表示给定的样本点$x_i$，属于第$k$个高斯分布生成的概率。
 
 对第$k$个高斯分布的均值$u_k$求偏导，并令其等于0：
 
