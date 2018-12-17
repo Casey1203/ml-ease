@@ -350,7 +350,7 @@ l _ { \pi , \mu , \Sigma } ( X)
 &=\sum _ { i = 1 } ^ { N } \log \left( \sum _ { k = 1 } ^ { K } \pi _ { k } N \left( x _ { i } | \mu _ { k } , \Sigma _ { k } \right) \right) \\
 &= \sum_{i=1}^N{\log{\left(\sum_{k=1}^KQ(z_{i,k})\frac{\pi _ { k } N \left( x _ { i } | \mu _ { k } , \Sigma _ { k } \right)}{Q(z_{i,k})}\right)}}\\
 &\geq \sum_{i=1}^N{\sum_{k=1}^K{Q(z_{i,k})\log{\left(\frac{\pi _ { k } N \left( x _ { i } | \mu _ { k } , \Sigma _ { k } \right)}{Q(z_{i,k})}\right)}}} \\
-&= \sum_{i=1}^N{\sum_{k=1}^K{Q(z_{i,k})\log{\left(\frac{\frac{\pi_k}{\sqrt{2\pi}}\Sigma^{-1}_ke^{-\frac{(x_i-\mu_k)^T\Sigma_k^{-1}(x_i-\mu_k)}{2}}}{Q_(z_{i,k})}\right)}}} = B
+&= \sum_{i=1}^N{\sum_{k=1}^K{Q(z_{i,k})\log{\left(\frac{\frac{\pi_k}{\sqrt{2\pi}}\Sigma^{-1}_ke^{-\frac{(x_i-\mu_k)^T\Sigma_k^{-2}(x_i-\mu_k)}{2}}}{Q_(z_{i,k})}\right)}}} = B
 \end{aligned}
 $$
 因此利用对数似然函数的下界，对下界求偏导数
@@ -360,8 +360,8 @@ $$
 $$
 \begin{aligned}
 \frac{\partial B}{\partial u_k} &= -\nabla
-_{\mu_k}\sum_{i=1}^N{{\sum _ { k = 1 } ^ { K } Q(z_{i,k})\frac{(x_i-\mu_k)^T\Sigma_k^{-1}(x_i-\mu_k)}{2}}} \\
-&=\sum_{i=1}^N{Q(z_{i,k}) (x_i-\mu_k)^T\Sigma_k^{-1}} = 0
+_{\mu_k}\sum_{i=1}^N{{\sum _ { k = 1 } ^ { K } Q(z_{i,k})\frac{(x_i-\mu_k)^T\Sigma_k^{-2}(x_i-\mu_k)}{2}}} \\
+&=\sum_{i=1}^N{Q(z_{i,k}) (x_i-\mu_k)^T\Sigma_k^{-2}} = 0
 \end{aligned}
 $$
 
@@ -369,3 +369,30 @@ $$
 $$
 \mu_k= \frac{\sum_{i=1}^N{Q(z_{i,k})x_i}}{\sum_{i=1}^N{Q(z_{i,k})}}
 $$
+
+对第$k$个高斯分布的概率$\pi_k$求偏导，并令其等于0。需要注意的是，$\pi_k$需要满足两个条件
+$$
+\left\{ \begin{array} { l } { \sum_{k=1}^K\pi_k = 1} \\ 
+{ \pi_k \geq 0, \quad \ k=1\ldots K} \end{array} \right.
+$$
+因此利用拉格朗日乘子法，引入拉格朗日乘子，并且去掉与$\pi_k$无关的项，构造拉格朗日函数
+$$
+\begin{aligned}
+L(\pi_k, \lambda)=\sum_{i=1}^N{\sum_{k=1}^K{Q(z_{i,k})\log{\pi_k}}} + \lambda(\sum_{k=1}^K{\pi_k}-1)
+\end{aligned}
+$$
+求拉格朗日函数对$\pi_k$的偏导数
+$$
+\frac{\partial L}{\partial u_k} = \sum_{i=1}^N{\frac{Q(z_{i,k})}{\pi_k}} + \lambda = 0
+$$
+求得$\pi_k = -\frac{\sum_{i=1}^N{Q(z_{i,k})}}{\lambda}$。又因为$\sum_{k=1}^K\pi_k = 1$，代入上式，得到
+$$
+\lambda =-\sum_{k=1}^K{\sum_{i=1}^N{Q(z_{i,k})}}
+$$
+
+因此
+$$
+\pi_k = \frac{\sum_{i=1}^N{Q(z_{i,k})}}{\sum_{k=1}^K{\sum_{i=1}^N{Q(z_{i,k})}}}
+$$
+
+对第$k$个高斯分布的标准差$\Sigma_k$求偏导，并令其等于0
