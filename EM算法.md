@@ -347,11 +347,25 @@ $$
 $$
 \begin{aligned}
 l _ { \pi , \mu , \Sigma } ( X) 
-=\sum _ { i = 1 } ^ { N } \log \left( \sum _ { k = 1 } ^ { K } \pi _ { k } N \left( x _ { i } | \mu _ { k } , \Sigma _ { k } \right) \right)
+&=\sum _ { i = 1 } ^ { N } \log \left( \sum _ { k = 1 } ^ { K } \pi _ { k } N \left( x _ { i } | \mu _ { k } , \Sigma _ { k } \right) \right) \\
+&= \sum_{i=1}^N{\log{\left(\sum_{k=1}^KQ(z_{i,k})\frac{\pi _ { k } N \left( x _ { i } | \mu _ { k } , \Sigma _ { k } \right)}{Q(z_{i,k})}\right)}}\\
+&\geq \sum_{i=1}^N{\sum_{k=1}^K{Q(z_{i,k})\log{\left(\frac{\pi _ { k } N \left( x _ { i } | \mu _ { k } , \Sigma _ { k } \right)}{Q(z_{i,k})}\right)}}} \\
+&= \sum_{i=1}^N{\sum_{k=1}^K{Q(z_{i,k})\log{\left(\frac{\frac{\pi_k}{\sqrt{2\pi}}\Sigma^{-1}_ke^{-\frac{(x_i-\mu_k)^T\Sigma_k^{-1}(x_i-\mu_k)}{2}}}{Q_(z_{i,k})}\right)}}} = B
 \end{aligned}
 $$
-对$u_k$求导：
+因此利用对数似然函数的下界，对下界求偏导数
+
+对第$k$个高斯分布的均值$u_k$求偏导，并令其等于0：
 
 $$
-\frac{\partial l}{}
+\begin{aligned}
+\frac{\partial B}{\partial u_k} &= -\nabla
+_{\mu_k}\sum_{i=1}^N{{\sum _ { k = 1 } ^ { K } Q(z_{i,k})\frac{(x_i-\mu_k)^T\Sigma_k^{-1}(x_i-\mu_k)}{2}}} \\
+&=\sum_{i=1}^N{Q(z_{i,k}) (x_i-\mu_k)^T\Sigma_k^{-1}} = 0
+\end{aligned}
+$$
+
+进而得到
+$$
+\mu_k= \frac{\sum_{i=1}^N{Q(z_{i,k})x_i}}{\sum_{i=1}^N{Q(z_{i,k})}}
 $$
