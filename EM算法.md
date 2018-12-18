@@ -372,14 +372,14 @@ $$
 $$
 \begin{aligned}
 \frac{\partial B}{\partial u_k} &= -\nabla
-_{\mu_k}\sum_{i=1}^N{{\sum _ { k = 1 } ^ { K } Q(z_{i,k})\frac{(x_i-\mu_k)^T\Sigma_k^{-2}(x_i-\mu_k)}{2}}} \\
-&=\sum_{i=1}^N{Q(z_{i,k}) (x_i-\mu_k)^T\Sigma_k^{-2}} = 0
+_{\mu_k}\sum_{i=1}^N{{\sum _ { k = 1 } ^ { K } \gamma(i,k)\frac{(x_i-\mu_k)^T\Sigma_k^{-2}(x_i-\mu_k)}{2}}} \\
+&=\sum_{i=1}^N{\gamma(i,k) (x_i-\mu_k)^T\Sigma_k^{-2}} = 0
 \end{aligned}
 $$
 
 进而得到
 $$
-\mu_k= \frac{\sum_{i=1}^N{Q(z_{i,k})x_i}}{\sum_{i=1}^N{Q(z_{i,k})}}
+\mu_k= \frac{\sum_{i=1}^N{\gamma(i,k)x_i}}{\sum_{i=1}^N{\gamma(i,k)}}
 $$
 
 对第$k$个高斯分布的概率$\pi_k$求偏导，并令其等于0。需要注意的是，$\pi_k$需要满足两个条件
@@ -390,21 +390,27 @@ $$
 因此利用拉格朗日乘子法，引入拉格朗日乘子，并且去掉与$\pi_k$无关的项，构造拉格朗日函数
 $$
 \begin{aligned}
-L(\pi_k, \lambda)=\sum_{i=1}^N{\sum_{k=1}^K{Q(z_{i,k})\log{\pi_k}}} + \lambda(\sum_{k=1}^K{\pi_k}-1)
+L(\pi_k, \lambda)=\sum_{i=1}^N{\sum_{k=1}^K{\gamma(i,k)\log{\pi_k}}} + \lambda(\sum_{k=1}^K{\pi_k}-1)
 \end{aligned}
 $$
-求拉格朗日函数对$\pi_k$的偏导数
+构造这样的拉格朗日函数，可以保证求解出来的$\pi_k$是非负的，因此不需要额外引入拉格朗日乘子/求拉格朗日函数对$\pi_k$的偏导数
 $$
-\frac{\partial L}{\partial u_k} = \sum_{i=1}^N{\frac{Q(z_{i,k})}{\pi_k}} + \lambda = 0
+\frac{\partial L}{\partial u_k} = \sum_{i=1}^N{\frac{\gamma(i,k)}{\pi_k}} + \lambda = 0
 $$
-求得$\pi_k = -\frac{\sum_{i=1}^N{Q(z_{i,k})}}{\lambda}$。又因为$\sum_{k=1}^K\pi_k = 1$，代入上式，得到
+求得$\pi_k = -\frac{\sum_{i=1}^N{\gamma(i,k)}}{\lambda}$。又因为$\sum_{k=1}^K\pi_k = 1$，代入上式，得到
 $$
-\lambda =-\sum_{k=1}^K{\sum_{i=1}^N{Q(z_{i,k})}}
+\lambda =-\sum_{k=1}^K{\sum_{i=1}^N{\gamma(i,k)}}
 $$
 
 因此
 $$
-\pi_k = \frac{\sum_{i=1}^N{Q(z_{i,k})}}{\sum_{k=1}^K{\sum_{i=1}^N{Q(z_{i,k})}}}
+\pi_k = \frac{\sum_{i=1}^N{\gamma(i,k)}}{\sum_{k=1}^K{\sum_{i=1}^N{\gamma(i,k)}}} = \frac{N_k}{N}
+$$
+其中分子$N_k$表示第$k$个高斯分布生成的样本点的个数，分母$N$表示一共有多少个样本点。
+
+对第$k$个高斯分布的标准差$\Sigma_k$求偏导，并令其等于0。这个过程推导比较复杂，但是最后可以得到
+$$
+\Sigma^2_k = \frac{\sum _ { i = 1 } ^ { N } \gamma ( i , k ) \left( x _ { i } - \mu _ { k } \right) \left( x _ { i } - \mu _ { k } \right) ^ { T }}{\sum_{i=1}^N{\gamma(i,k)}} = \frac{1}{N_k} \sum _ { i = 1 } ^ { N } \gamma ( i , k ) \left( x _ { i } - \mu _ { k } \right) \left( x _ { i } - \mu _ { k } \right) ^ { T }
 $$
 
-对第$k$个高斯分布的标准差$\Sigma_k$求偏导，并令其等于0
+至此完成了用EM算法求解GMM模型的参数估计的推导过程。
