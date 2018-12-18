@@ -145,7 +145,7 @@ $$
 
 $$
 \begin{aligned}
-(K(\textbf{x}^{(1)}, \textbf{x}^{(1)}) + K(\textbf{x}^{(2)}, \textbf{x}^{(2)}) - 2K(\textbf{x}^{(1)}, \textbf{x}^{(2)})) (\alpha^{(2)})^{\text{new,unc}} =& 
+&(K(\textbf{x}^{(1)}, \textbf{x}^{(1)}) + K(\textbf{x}^{(2)}, \textbf{x}^{(2)}) - 2K(\textbf{x}^{(1)}, \textbf{x}^{(2)})) (\alpha^{(2)})^{\text{new,unc}} \\=& 
 y^{(2)}[K(\textbf{x}^{(1)}, \textbf{x}^{(1)})((\alpha^{(1)})^{\text{old}}y^{(1)} +  (\alpha^{(2)})^{\text{old}}y^{(2)})  - K(\textbf{x}^{(1)}, \textbf{x}^{(2)}) ((\alpha^{(1)})^{\text{old}}y^{(1)} +  (\alpha^{(2)})^{\text{old}}y^{(2)}) \\ 
 &- y^{(1)} + y^{(2)} + (g(\textbf{x}^{(1)}) - \sum_{i=1}^2{\alpha^{(i)}y^{(i)}K(\textbf{x}^{(i)}, \textbf{x}^{(1)})} - b) - (g(\textbf{x}^{(2)}) - \sum_{i=1}^2{\alpha^{(i)}y^{(i)}K(\textbf{x}^{(i)}, \textbf{x}^{(2)})} - b)] \\
 =& y^{(2)}[K(\textbf{x}^{(1)}, \textbf{x}^{(1)})(\alpha^{(1)})^{\text{old}}y^{(1)} + K(\textbf{x}^{(1)}, \textbf{x}^{(1)}) (\alpha^{(2)})^{\text{old}}y^{(2)} \\
@@ -235,7 +235,7 @@ $$
 
 $$
 \begin{aligned}
-(b^{(1)})^{\text{new}} &= -(E^{(1)})^{\text{old}} + (\alpha^{(1)})^{\text{old}}y^{(1)}K(\textbf{x}^{(1)}, \textbf{x}^{(1)}) + (\alpha^{(2)})^{\text{old}}y^{(2)}K(\textbf{x}^{(2)}, \textbf{x}^{(1)}) + b^{\text{old}} -  (\alpha^{(1)})^{\text{new}}y^{(1)}K(\textbf{x}^{(1)}, \textbf{x}^{(1)}) - (\alpha^{(2)})^{\text{new}}y^{(2)}K(\textbf{x}^{(2)}, \textbf{x}^{(1)}) \\
+(b^{(1)})^{\text{new}} &= -(E^{(1)})^{\text{old}} + (\alpha^{(1)})^{\text{old}}y^{(1)}K(\textbf{x}^{(1)}, \textbf{x}^{(1)}) + (\alpha^{(2)})^{\text{old}}y^{(2)}K(\textbf{x}^{(2)}, \textbf{x}^{(1)}) + b^{\text{old}} \\ &-  (\alpha^{(1)})^{\text{new}}y^{(1)}K(\textbf{x}^{(1)}, \textbf{x}^{(1)}) - (\alpha^{(2)})^{\text{new}}y^{(2)}K(\textbf{x}^{(2)}, \textbf{x}^{(1)}) \\
 &= -(E^{(1)})^{\text{old}} - y^{(1)}K(\textbf{x}^{(1)}, \textbf{x}^{(1)})[(\alpha^{(1)})^{\text{new}} - (\alpha^{(1)})^{\text{old}}] - y^{(2)}K(\textbf{x}^{(2)}, \textbf{x}^{(1)})[(\alpha^{(2)})^{\text{new}} - (\alpha^{(2)})^{\text{old}}] +  b^{\text{old}}
 \end{aligned}
 $$
