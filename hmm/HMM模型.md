@@ -234,7 +234,7 @@ $$
 {\alpha_3(2) = \left( \sum_{j=1}^N \alpha_2(j)a_{j2}\right)b_2(o_3)}\\
 =(0.077 \times 0.2 + 0.1104 \times 0.5 + 0.0606 \times 0.3) \times 0.4 \\
 = 0.03551\\
-{\alpha_3(3) = \left( \sum_{j=1}^N \alpha_2(j)a_{j2}\right)b_3(o_3)}\\
+{\alpha_3(3) = \left( \sum_{j=1}^N \alpha_2(j)a_{j3}\right)b_3(o_3)}\\
 =(0.077 \times 0.3 + 0.1104 \times 0.2 + 0.0606 \times 0.5)\times 0.7 \\
 = 0.05284
 \end{array}
@@ -250,3 +250,57 @@ $$
 初值：$t=T$时刻，$\beta_T(i)=1,\quad i=1,2,\ldots,N$，表示$T$时刻，状态位于$i$。由于后面已经没有观测了，因此对于一个只要前提，不要结论的概率等于1。
 
 递推：对于$t=T-1,\ldots,1$
+$$
+\beta_t(i)=\left(\sum_{j=1}^N{a_{ij}b_j(o_{t+1})\beta_{t+1}(j)}\right)
+$$
+这是后项概率的递推公式。因为后项概率要求在第$t$时刻位于$i$状态，且不需要获得观测$o_t$，因此在计算从$t+1$时刻的后项概率推出$t$时刻的后项概率时，只需考虑在时刻$t$到时刻$t+1$转移的所有可能的$N$个状态$j$的转移概率$a_{ij}$，以及在$t+1$时刻，$j$状态下得到的观测$o_{t+1}$的概率$b_j(o_{t+1})$。此时已经完成了从$t$时刻的状态$i$，完成了向$t+1$时刻的状态$j$转变，同时在状态$j$观测到了$o_{t+1}$，概率为$a_{ij}b_j(o_{t+1})$。之后再考虑$t+1$时刻在状态$j$的后项概率$\beta_{t+1}(j)$。由于我们不关心$t+1$时刻位于哪个状态$j$，我们只关心$t$时刻在状态$i$就行，因此还要把$j$积分掉。
+
+终止：
+$$
+P(O|\lambda)=\sum_{i=1}^N\pi_ib_i(o_1)\beta_1(i)
+$$
+在$t=1$时刻，后项概率表示状态位于$i$，得到了$o_2,o_3,\ldots,o_T$的观测序列。因此还需要乘上一开始进入状态$i$的概率$\pi_i$和在状态$i$下观测到$o_1$的概率$b_i(o_1)$。
+
+最后，由于$t=1$时刻位于哪个状态我们不考虑，因此需要把$i$给积分掉。
+
+### 2.3 前向后向概率的关系
+
+把前向概率和后向概率相乘，有以下式子
+$$
+\begin{aligned}
+\alpha_t(i)\beta_t(i)&=P(o_1,o_2,\ldots,o_t,i_t=i|\lambda)P(o_{t+1},o_{t+2},\ldots,o_{T}|i_t=i,\lambda) \\
+&=P(o_1,o_2,\ldots,o_t|i_t=i,\lambda)P(i_t=i|\lambda)P(o_{t+1},o_{t+2},\ldots,o_{T}|i_t=i,\lambda) \\
+&=P(o_1,o_2,\ldots,o_T|i_t=i,\lambda)P(i_t=i|\lambda) \\
+&= P(O,i_t=i|\lambda)
+\end{aligned}
+$$
+这个式子的含义是观测到了观测序列$O=(o_1,o_2,\ldots,o_T)$的同时，$t$时刻位于状态$i$的联合概率。
+
+利用这个联合概率，可以求
+$$
+P(i_t=i|O,\lambda)=\frac{P(i_t=i,O|\lambda)}{P(O|\lambda)}
+$$
+这是给定HMM模型参数，以及观测的情况下，$t$时刻位于状态$i$的概率，定义为$\gamma_t(i)$。
+
+因为$P(O|\lambda)=\sum_{i}^N{P(i_t=i,O|\lambda)}$中把状态$i$给积分掉了，因此
+$$
+\begin{aligned}
+\gamma_t(i)&=\frac{P(i_t=i,O|\lambda)}{\sum_{i=1}^N{P(i_t=i,O|\lambda)}}\\
+&= \frac{\alpha_t(i)\beta_t(i)}{\sum_{i=1}^N\alpha_t(i)\beta_t(i)}
+\end{aligned}
+$$
+$\gamma_t(i)$的意义在于，它表示在$t$时刻下，出现状态$i$的概率，因此在每个时刻下，选择最大的$\gamma$对应的状态，为在该时刻下最有可能出现的状态$i_t^\star$，从而得到一个状态序列$I=(i_1^{\star},i_2^{\star},\ldots,i_T^{\star})$作为预测的结果。
+
+再更进一步，定义$\xi(i,j)$为在$t$时刻位于状态$i$，同时在$t+1$时刻位于状态$j$的联合概率。
+
+因此
+$$
+\begin{aligned}
+\xi_t(i,j)=P(i_t=i,i_{t+1}=j|O,\lambda) &= \frac{P(i_t=i,i_{t+1}=j,O|\lambda)}{P(O|\lambda)} \\
+&= \frac{P(i_t=i,i_{t+1}=j,O|\lambda)}{\sum_{i=1}^N{\sum_{j=1}^N{P(i_t=i,i_{t+1}=j,O|\lambda)}}}
+\end{aligned}
+$$
+注意到
+$$
+P(i_t=i,i_{t+1}=j,O|\lambda)=P(i_t=i,o_1,o_2,\ldots,o_t|\lambda)P(i_{t+1}=j|i_t=i,\lambda)P(o_{t+1}|i_{t+1}=j,\lambda)P(o_{t+1},o_{t+2},\ldots,o_T|i_{t+1}=j,\lambda)
+$$
