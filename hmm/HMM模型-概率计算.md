@@ -175,7 +175,48 @@ $$
 $$
 注意到
 $$
-P(i_t=i,i_{t+1}=j,O|\lambda)=P(i_t=i,o_1,o_2,\ldots,o_t|\lambda)P(i_{t+1}=j|i_t=i,\lambda)P(o_{t+1}|i_{t+1}=j,\lambda)P(o_{t+1},o_{t+2},\ldots,o_T|i_{t+1}=j,\lambda)
+\begin{aligned}
+P(i_t=i,i_{t+1}=j,O|\lambda)&=P(i_t=i,O_{1\rightarrow t}|\lambda)P(i_{t+1}=j|i_t=i,\lambda)P(o_{t+1}|i_{t+1}=j,\lambda)P(O_{t+2\rightarrow T}|i_{t+1}=j,\lambda) \\
+&= P(i_t=i,O_{1\rightarrow t}|\lambda)P(i_{t+1}=j|i_t=i,\lambda)P(O_{t+1\rightarrow T}|i_{t+1}=j,\lambda) \\
+&= P(i_t=i,O_{1\rightarrow t}|\lambda)P(O_{t+1\rightarrow T},i_{t+1}=j|i_{t}=i,\lambda) \\
+&= P(i_t=i,i_{t+1}=j,O_{1\rightarrow T}|\lambda)=P(i_t=i,i_{t+1}=j,O|\lambda)
+\end{aligned}
 $$
 
-期望：
+其中，
+$$
+\begin{aligned}
+P(i_t=i,O_{1\rightarrow t}|\lambda)&=\alpha_t(i)\\
+P(i_{t+1}=j|i_t=i,\lambda)&=a_{ij}\\
+P(o_{t+1}|i_{t+1}=j,\lambda)&=b_{j}(o_{t+1}) \\
+P(O_{t+2\rightarrow T}|i_{t+1}=j,\lambda)&= \beta_{t+1}(j)
+\end{aligned}
+$$
+因此$P(i_t=i,i_{t+1}=j,O|\lambda)=\alpha_t(i)a_{ij}b_{j}(o_{t+1})\beta_{t+1}(j)$
+
+进而
+$$
+\xi_t(i,j)=P(i_t=i,i_{t+1}=j|O,\lambda) = \frac{\alpha_t(i)a_{ij}b_{j}(o_{t+1})\beta_{t+1}(j)}{\sum_{i=1}^N{\sum_{j=1}^N{\alpha_t(i)a_{ij}b_{j}(o_{t+1})\beta_{t+1}(j)}}}
+$$
+
+
+因为$\gamma_t(i)$和$\xi_t(i,j)$都是针对任意一个时刻$t$的，因此如果对时间$t$求和，可以得到它们的期望，即
+
+1. 在观测$O$出现的情况下，状态$i$出现的期望
+
+$$
+\sum _ { t = 1 } ^ { T } \gamma _ { i } ( i )
+$$
+
+2. 在观测O出现的情况下，由状态$i$转移的期望
+
+$$
+\sum _ { t = 1 } ^ { T - 1 } \gamma _ { t } ( i )
+$$
+
+3. 在观测O出现的情况下，由状态$i$转移到状态$j$的期望
+
+$$
+\sum _ { t = 1 } ^ { T - 1 } \xi _ { t } ( i , j )
+$$
+
