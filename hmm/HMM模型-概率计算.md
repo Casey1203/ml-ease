@@ -158,7 +158,7 @@ $$
 因为$P(O|\lambda)=\sum_{i}^N{P(i_t=i,O|\lambda)}$中把状态$i$给积分掉了，因此
 $$
 \begin{aligned}
-\gamma_t(i)&=\frac{P(i_t=i,O|\lambda)}{\sum_{i=1}^N{P(i_t=i,O|\lambda)}}\\
+\gamma_t(i)&=\frac{P(i_t=i,O|\lambda)}{\sum_{i=1}^N{P(i_t=i,O|\lambda)}}=P(i_t=i|O,\lambda)\\
 &= \frac{\alpha_t(i)\beta_t(i)}{\sum_{i=1}^N\alpha_t(i)\beta_t(i)}
 \end{aligned}
 $$
