@@ -159,7 +159,7 @@ $$
 $$
 \begin{aligned}
 \gamma_t(i)&=\frac{P(i_t=i,O|\lambda)}{\sum_{i=1}^N{P(i_t=i,O|\lambda)}}=P(i_t=i|O,\lambda)\\
-&= \frac{\alpha_t(i)\beta_t(i)}{\sum_{i=1}^N\alpha_t(i)\beta_t(i)}
+&= \frac{\alpha_t(i)\beta_t(i)}{\sum_{j=1}^N\alpha_t(j)\beta_t(j)}
 \end{aligned}
 $$
 $\gamma_t(i)$的意义在于，它表示在$t$时刻下，出现状态$i$的概率，因此在每个时刻下，选择最大的$\gamma$对应的状态，为在该时刻下最有可能出现的状态$i_t^\star$，从而得到一个状态序列$I=(i_1^{\star},i_2^{\star},\ldots,i_T^{\star})$作为预测的结果。
