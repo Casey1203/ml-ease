@@ -39,6 +39,7 @@ $$
 
 
 
+
 ### 3.2 Baum-Welch算法
 
 如果没有标注数据，则为非监督学习，采用BW算法。假设给定训练数据集$D$，包含有$S$个样本
@@ -108,14 +109,14 @@ $$
 $$
 \pi_i=\frac{P(O,i_1=i|\bar{\lambda})}{P(O|\bar{\lambda})}
 $$
-从而可以得到$pi_i$的更新值的计算公式。
+从而可以得到$\pi_i$的更新值的计算公式。
 
 接着是第二项$a_{i_ti_{t+1}}$。Q函数的第二项可以写成
 $$
 \sum_{I}\left(\sum_{t=1}^{T-1}{\log{a_{i_ti_{t+1}}}}\right)P(I,O|\bar{\lambda})=
 \sum_{i=1}^N{\sum_{j=1}^N{\sum_{t=1}^{T-1}\log{a_{ij}}P(O,i_t=i,i_{t+1}=j|\bar{\lambda})}}
 $$
-注意到转移概率$a_{ij}$具有约束条件$\sum_{j=1}^Na_{ij}=1$，因此同样利用拉格朗日乘子法，写出拉格朗日函数
+注意到转移概率$a_{ij}​$具有约束条件$\sum_{j=1}^Na_{ij}=1​$，因此同样利用拉格朗日乘子法，写出拉格朗日函数
 $$
 \sum_{i=1}^N{\sum_{j=1}^N{\sum_{t=1}^{T-1}\log{a_{ij}}P(O,i_t=i,i_{t+1}=j|\bar{\lambda})}} + \zeta\left(\sum_{j=1}^Na_{ij}-1\right)
 $$
