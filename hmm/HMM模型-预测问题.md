@@ -140,8 +140,8 @@ $$
 $$
 \begin{aligned}
 \delta_2(3)&=\max_{1\leq j\leq 3}[\delta_1(j)a_{j3}]b_3(o_2) \\
-&=\max_j\{0.1\times0.3, 0.16\times 0.2, 0.28\times 0.5\} \times 0.7\\
-&= 0.098
+&=\max_j\{0.1\times0.3, 0.16\times 0.2, 0.28\times 0.5\} \times 0.3\\
+&= 0.042
 \end{aligned}
 $$
 
