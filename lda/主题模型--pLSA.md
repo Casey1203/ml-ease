@@ -112,16 +112,18 @@ $$
 &=\tau_k \sum_{j=1}^MP(w_j|z_k)=\tau_k
 \end{aligned}
 $$
-将$\tau_k$带回式子
+将$\tau_k$带回式子，将$P(w_j|z_k)$移到一边，得到
 $$
 \begin{aligned}
-\sum _ { i } n \left( d _ { i } , w _ { j } \right) P \left( z _ { k } | d _ { i } , w _ { j } \right) &= \tau_k P(w_j|z_k) \\
-&=\sum_{j=1}^M\sum_i n(d_i,w_j)P(z_k|d_i,w_j) P(w_j|z_k)
+P(w_j|z_k) &=\frac{\sum _ { i } n \left( d _ { i } , w _ { j } \right) P \left( z _ { k } | d _ { i } , w _ { j } \right) }{\tau_k} \\
+&= \frac{\sum _ { i } n \left( d _ { i } , w _ { j } \right) P \left( z _ { k } | d _ { i } , w _ { j } \right) }{\sum_{j=1}^M \sum_{i}n(d_i,w_j)P(z_k|d_i,w_j)}
 \end{aligned}
 $$
-推出
+同理可以得到
 $$
-P(w_j|z_k)=
+P \left( z _ { k } | d _ { i } \right) = \frac { \sum _ { j } n \left( d _ { i } , w _ { j } \right) P \left( z _ { k } | d _ { i } , w _ { j } \right) } { \sum _ { k = 1 } ^ { K } \sum _ { j } n \left( d _ { i } , w _ { j } \right) P \left( z _ { k } | d _ { i } , w _ { j } \right) }
 $$
+因此，M步的过程中更新$P(w_j|z_k)$和$P(z_k|d_i)$的公式就推导出来了。
 
+之后就是不停的迭代即可，以上就完成了pLSA全部的推导。
 
