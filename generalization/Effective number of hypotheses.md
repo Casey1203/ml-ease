@@ -19,3 +19,7 @@ $$
 当平面上有两个点时，我们一共可以得到以下几种情况
 
 <img src="https://i.loli.net/2020/07/28/yNgwLE1bQFGJjUO.png" alt="image-20200728220419809" style="zoom:50%;" />
+
+如果平面上有三个点，则一条直线可以将它们分为以下8种情况
+
+![image-20200729220056189](https://i.loli.net/2020/07/29/WpsKlH9VAPtGNMu.png)
