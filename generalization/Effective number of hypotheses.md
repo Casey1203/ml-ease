@@ -48,5 +48,25 @@ $$
 
 我们可以讨论一下成长函数在不同的情况下的取值。
 
-![1](https://i.loli.net/2020/08/02/IPO6gTELcBCYk5N.png)
+图中是一维的positive rays（rays指代一条射线向右，右边为1，左边为-1），它的成长函数小于$2^N$
+
+<img src="https://i.loli.net/2020/08/02/IPO6gTELcBCYk5N.png" alt="2" style="zoom:50%;" />
+
+假设图中有$N$个点，则可以把直线划分为$N+1$个区域，因此射线的起点有$N+1$个位置，可以构造$N+1$个dichotomy，其成长函数$m_{\mathcal{H}}(N)=N+1 \ll 2^N$。
+
+另外一种一维的情况是positive intervals，在interval内为1，否则为-1，它的成长函数同样小于$2^N$
+
+<img src="https://i.loli.net/2020/08/04/xt2cZa9yAKUj1Hm.png" alt="1" style="zoom:50%;" />
+
+在$N+1$个区域中，选择两个区域作为interval的左右两端，外加一种区域大小为0，即区域左右两端在同一个区域的情况，所有的点都为✖️，因此
+$$
+\begin{aligned} m_{\mathcal{H}}(N) &=\underbrace{\left(\begin{array}{c}N+1 \\ 2\end{array}\right)}_{\text {interval ends in } N+1 \text { spots }}+\underbrace{1}_{\text {all } \times} \\ &=\frac{1}{2} N^{2}+\frac{1}{2} N+1 \ll 2^N\end{aligned}
+$$
+接下来看二维的情况，如下面的图所示，图中蓝色区域的部分表示数据集的摆放位置的分布，其中左是一个凸集，又图则不是凸集。
+
+<img src="https://i.loli.net/2020/08/04/8XYzUTaJFshQgG7.png" alt="1" style="zoom:50%;" />
+
+当数据集摆放成凸分布时，hypotheses set可以将数据集的所有分类组合都做得出，因此它的成长函数$m_{\mathcal{H}}(N)=2^N$，我们称这种情况为shattered，我们可以看下面这个例子，数据集分布在圆形的边上（满足数据集分布为凸），我们可以连接不同的点构成多边形的hypothesis来形成各种分类组合，从而shattered该数据集。
+
+<img src="https://i.loli.net/2020/08/04/rnXM8NWe2QUhP7T.png" alt="1" style="zoom:50%;" />
 
